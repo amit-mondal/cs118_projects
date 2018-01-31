@@ -3,7 +3,12 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <string>
+#include <cstring>
+#include <cstdlib>
+#include <cstdio>
+#include <errno.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/socket.h>

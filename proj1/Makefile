@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -g -Wall -Wextra -Wno-unused-parameter
+CXXFLAGS = -g -Wall -Wextra -Wno-unused-parameter -std=c++11
 
 sources = main.cpp request.cpp response.cpp
 headers = request.h response.h

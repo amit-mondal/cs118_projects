@@ -2,6 +2,8 @@
 #include <sstream>
 #include <string>
 #include <cstring>
+#include <cstdlib>
+#include <cstdio>
 #include <fstream>
 #include <sys/stat.h>
 #include <sys/types.h>   // definitions of a number of data types used in socket.h and netinet/in.h
