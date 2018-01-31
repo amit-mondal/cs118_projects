@@ -18,7 +18,7 @@ struct http_response {
     string content_type;
     string to_string() {
 	if (status == NOT_FOUND) {
-	    return status + "\r\n";
+	    return status + "\r\n\r\n<b>404 File Not Found</b>";
 	}
 	return status + "\r\nConnection: close\r\n" +
 	    "Content-Length: " + std::to_string(content_size) +
