@@ -1,3 +1,4 @@
+// Amit Mondal and Michael Cade Mallett
 #include <string>
 #include <iostream>
 #include <vector>
@@ -159,6 +160,7 @@ void replace_all(std::string& str, const std::string& from, const std::string& t
     }
 }
 
+// Extracts the file name from the request text.
 string get_file_name(string request_text) {
     http_request req;
     if (parse_http_message(request_text, req) < 0) {

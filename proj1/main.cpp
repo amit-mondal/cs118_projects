@@ -1,3 +1,4 @@
+// Amit Mondal and Michael Cade Mallett
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -16,6 +17,7 @@
 #include "request.h"
 using namespace std;
 
+// Max bytes for an incoming request.
 const int REQUEST_BUFFER_SIZE = 2048;
 
 int main(int argc, char** argv) {
@@ -31,6 +33,7 @@ int main(int argc, char** argv) {
     sockfd = socket(AF_INET, SOCK_STREAM, 0);  // create socket
     if (sockfd < 0)
 	print_sc_error("ERROR opening socket");
+    
     memset((char *) &serv_addr, 0, sizeof(serv_addr));   // reset memory
 
     // fill in address info
@@ -45,40 +48,32 @@ int main(int argc, char** argv) {
 
     if (listen(sockfd, 5) < 0) { // Called with a backlog of 5, but only expect a single connection.
 	print_sc_error("ERROR on call to listen()");
-    }
-    
-    //accept connections
-    /*
-    newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
-
-    if (newsockfd < 0) {
-	print_sc_error("ERROR on accept");
-    }
-    */
+    }    
 
     int n;
-    char buffer[REQUEST_BUFFER_SIZE];
-
-    memset(buffer, 0, 512);  // reset memory
+    // Buffer to read in request data.
+    char buffer[REQUEST_BUFFER_SIZE];    
+    memset(buffer, 0, REQUEST_BUFFER_SIZE);  // reset memory
 
     // Read HTTP request in loop condition.
     while (1) {
+	// Accept new connections in the loop.
 	newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
-
 	if (newsockfd < 0) {
 	    print_sc_error("ERROR on accept");
-	}	
+	}
+	// Read in the HTTP request.
 	n = read(newsockfd, buffer, REQUEST_BUFFER_SIZE);
 	if (n < 0) print_sc_error("ERROR reading from socket");
-
+	// Write it to STDOUT.
 	if (write(STDOUT_FILENO, buffer, n) < 0) {
 	    print_sc_error("ERROR writing to stdout");
 	}
-
+	// Extract the filename from the request text.
 	string filename = get_file_name(string(buffer));
-
+	// Now send the response header and file data.
 	send_file(newsockfd, filename);
-	close(newsockfd);  // close connection	
+	close(newsockfd);  // close connection and wait for next request.
     }       
     close(sockfd);
 
