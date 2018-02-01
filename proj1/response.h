@@ -1,6 +1,7 @@
 #ifndef RESPONSE_H
 #define RESPONSE_H
 
+#include <algorithm>
 #include <iostream>
 #include <fstream>
 #include <sstream>

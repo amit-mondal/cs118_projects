@@ -34,6 +34,7 @@ long get_filesize(string filename) {
 
 file_ext get_file_extension(string filename) {
     string extension = filename.substr(filename.find_last_of(".") + 1);
+    std::transform(extension.begin(), extension.end(), extension.begin(), ::tolower);
     if (extension == "html" || extension == "htm") {
 	return html;
     }
