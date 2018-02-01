@@ -16,6 +16,7 @@
 #include "request.h"
 using namespace std;
 
+const int REQUEST_BUFFER_SIZE = 2048;
 
 int main(int argc, char** argv) {
     int sockfd, newsockfd, portno;
@@ -42,30 +43,43 @@ int main(int argc, char** argv) {
 	print_sc_error("ERROR on binding");
     }
 
-    listen(sockfd, 5);  // 5 simultaneous connection at most
-
+    if (listen(sockfd, 5) < 0) { // Called with a backlog of 5, but only expect a single connection.
+	print_sc_error("ERROR on call to listen()");
+    }
+    
     //accept connections
+    /*
     newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
 
-    if (newsockfd < 0)
+    if (newsockfd < 0) {
 	print_sc_error("ERROR on accept");
+    }
+    */
 
     int n;
-    char buffer[512];
+    char buffer[REQUEST_BUFFER_SIZE];
 
     memset(buffer, 0, 512);  // reset memory
 
-    //read client's message
-    n = read(newsockfd, buffer, 511);
-    if (n < 0) print_sc_error("ERROR reading from socket");
+    // Read HTTP request in loop condition.
+    while (1) {
+	newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
 
-    printf("%s", buffer);
+	if (newsockfd < 0) {
+	    print_sc_error("ERROR on accept");
+	}	
+	n = read(newsockfd, buffer, REQUEST_BUFFER_SIZE);
+	if (n < 0) print_sc_error("ERROR reading from socket");
 
-    string filename = get_file_name(string(buffer));
+	if (write(STDOUT_FILENO, buffer, n) < 0) {
+	    print_sc_error("ERROR writing to stdout");
+	}
 
-    send_file(newsockfd, filename);
-        
-    close(newsockfd);  // close connection
+	string filename = get_file_name(string(buffer));
+
+	send_file(newsockfd, filename);
+	close(newsockfd);  // close connection	
+    }       
     close(sockfd);
 
     return 0;    

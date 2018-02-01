@@ -147,11 +147,24 @@ int parse_http_message(string message, http_request &req) {
     return 0;
 }
 
+void replace_all(std::string& str, const std::string& from, const std::string& to) {
+    if(from.empty()) {
+	return;
+    }
+    size_t start_pos = 0;
+    while((start_pos = str.find(from, start_pos)) != std::string::npos) {
+	str.replace(start_pos, from.length(), to);
+	start_pos += to.length();
+	// In case 'to' contains 'from', like replacing 'x' with 'yx'
+    }
+}
 
 string get_file_name(string request_text) {
     http_request req;
     if (parse_http_message(request_text, req) < 0) {
 	return "";
     }
+    // handle files with spaces by replacing %20 with ' '
+    replace_all(req.request_target, "%20", " ");
     return req.request_target;
 }
