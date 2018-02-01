@@ -1,0 +1,17 @@
+Amit Mondal #804746916
+Michael Mallett #804826951
+
+CS118 Project 1
+
+This submission should include the following files:
+
+Makefile - builds the executable, cleans, and creates tarball.
+main.cpp - main source file that runs the server loop and makes the socket
+	   connection.
+request.h - header file with headers for all the functions dealing with
+	    processing the HTTP request
+request.cpp - source file for request.h
+response.h - header file with headers for all the functions dealing with
+	    processing and sending the HTTP response
+response.cpp - source file for response.h
+README - this file

@@ -15,4 +15,10 @@ request.o: request.h
 response.o: response.h
 
 clean:
-	rm -f *.o *~ server
+	rm -f *.o *~ ./server
+
+deliverables = $(sources) $(headers) Makefile README
+
+dist: 804746916.tar.gz
+804746916.tar.gz: $(deliverables)
+	tar -czf 804746916.tar.gz $(deliverables)
