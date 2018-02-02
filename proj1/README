@@ -1,5 +1,5 @@
 Amit Mondal #804746916
-Michael Mallett #804826951
+Michael Cade Mallett #804826951
 
 CS118 Project 1
 
@@ -14,4 +14,5 @@ request.cpp - source file for request.h
 response.h - header file with headers for all the functions dealing with
 	    processing and sending the HTTP response
 response.cpp - source file for response.h
+report.pdf - PDF of the project report
 README - this file

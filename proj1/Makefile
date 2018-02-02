@@ -18,7 +18,7 @@ clean:
 	rm -rf 804746916
 	rm -f *.o *~ ./server 804746916.tar.gz
 
-deliverables = $(sources) $(headers) Makefile README
+deliverables = $(sources) $(headers) Makefile README report.pdf
 DESTINATION = 804746916
 
 dist: 804746916.tar.gz
