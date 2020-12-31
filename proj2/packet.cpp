@@ -185,8 +185,8 @@ size_t packet::make_raw_pkt(char* buf) const {
 void packet::dump() const {
     printf("seq_num: %d, ack_num: %d, padding: %x, pkt_len: %d, checksum: %x\n",
 	   seq_num, ack_num, padding, pkt_len, checksum);
-    printf("data_len: %d, data: ", data_len);
-    printf("%.*s\n", data_len, data);
+    printf("data_len: %zu, data: ", data_len);
+    printf("%.*s\n", (int) data_len, data);
 }
 
 bool packet::is_valid() const {

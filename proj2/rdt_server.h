@@ -23,7 +23,7 @@ class rdt_server {
     void connect();
     void send_file();
  private:
-    int sockfd, portno, recvlen;
+    int sockfd, recvlen;
     socklen_t clilen;
     struct sockaddr_in serv_addr, rem_addr;
     

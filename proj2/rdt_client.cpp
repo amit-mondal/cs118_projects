@@ -1,7 +1,7 @@
 #include "rdt_client.h"
 
 rdt_client::rdt_client(char* hostname, int portno, char* filename) :
-    portno(portno), hostname(hostname), filename(filename) {
+    filename(filename) {
 
     pw_size_pkts = 0;
     pw_size_bytes = 0;

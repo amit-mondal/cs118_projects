@@ -1,6 +1,6 @@
 #include "rdt_server.h"
 
-rdt_server::rdt_server(int portno) : portno(portno), seq_num(0), pw_size_pkts(0), pw_size_bytes(0) {
+rdt_server::rdt_server(int portno) : seq_num(0), pw_size_pkts(0), pw_size_bytes(0) {
     this->pw_head = new spw_node();
     this->pw_tail = pw_head;
     this->file_index = 0;
@@ -228,9 +228,8 @@ void rdt_server::connect() {
 	       
 		// Check for ACK bit and correct ack number.
 		if (pkt.is_ack() && !pkt.is_syn() &&
-		    printf("Receiving packet %d\n", pkt.ack_num);
 		    pkt.ack_num == rdt_const::INIT_SEQ_NUM + packet::PKT_HEADER_SIZE) {
-
+		    printf("Receiving packet %d\n", pkt.ack_num);
 		    this->seq_num = pkt.ack_num;
 		    this->filename = std::string(pkt.data);
 		    // If the packet is an ACK, we can leave the loop.

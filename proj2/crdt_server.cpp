@@ -1,6 +1,6 @@
 #include "crdt_server.h"
 
-crdt_server::crdt_server(int portno) : portno(portno), seq_num(0), pw_size_pkts(0), pw_size_bytes(0) {
+crdt_server::crdt_server(int portno) : seq_num(0), pw_size_pkts(0), pw_size_bytes(0) {
     this->pw_head = new spw_node();
     this->pw_tail = pw_head;
     this->file_index = 0;

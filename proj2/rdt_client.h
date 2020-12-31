@@ -42,8 +42,8 @@ class rdt_client {
     void request_file(std::string out_filename);
  private:
     char buf[rdt_const::MAX_PKT_LEN];
-    int sockfd, portno;
-    char *hostname, *filename;
+    int sockfd;
+    char *filename;
     struct hostent* server;
     struct sockaddr_in serv_addr;
     socklen_t serv_addr_len;
